@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>StrikeForce Airsoft | Тактическая игра по страйкболу</title>
+    <!-- Font Awesome 6 (free icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Montserrat & Roboto Condensed -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto+Condensed:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', 'Roboto Condensed', sans-serif;
+            background: #0b1a1f;
+            color: #e0e7e9;
+            line-height: 1.5;
+        }
+
+        /* Контейнер и общие стили */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ========== ШАПКА (ЗАГОЛОВОК + ЛОГОТИП) ========== */
+        .header {
+            background: #0a1217;
+            border-bottom: 3px solid #6c9a3e;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
+        }
+
+        .header-flex {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2.4rem;
+            color: #8bc34a;
+        }
+
+        .logo-text h1 {
+            font-size: 1.7rem;
+            letter-spacing: 2px;
+            font-weight: 800;
+            color: #f5f9ff;
+        }
+
+        .logo-text p {
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            color: #8bc34a;
+            font-weight: 500;
+        }
+
+        /* навигация (меню для 10+ страниц) */
+        .nav-menu ul {
+            display: flex;
+            flex-wrap: wrap;
+            list-style: none;
+            gap: 8px;
+        }
+
+        .nav-menu a {
+            display: inline-block;
+            padding: 8px 14px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: #cfdfe5;
+            text-decoration: none;
+            transition: 0.2s;
+            border-radius: 30px;
+            background: rgba(44, 62, 55, 0.3);
+        }
+
+        .nav-menu a:hover, .nav-menu a.active {
+            background: #6c9a3e;
+            color: #0a1a1a;
+            box-shadow: 0 2px 8px rgba(108,154,62,0.5);
+        }
+
+        /* ========== РЕКЛАМНЫЙ БАННЕР (Hero) ========== */
+        .hero-banner {
+            background: linear-gradient(97deg, #0d2b22 0%, #1e3a2f 100%), url('https://placehold.co/1600x400/2c5a3a/white?text=Airsoft+Battlefield');
+            background-size: cover;
+            background-blend-mode: overlay;
+            padding: 70px 20px;
+            text-align: center;
+            margin-bottom: 40px;
+            border-radius: 0 0 28px 28px;
+            box-shadow: inset 0 -2px 0 #8bc34a, 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .hero-banner h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0 #1f3b2c;
+            letter-spacing: 2px;
+        }
+
+        .hero-banner p {
+            max-width: 700px;
+            margin: 16px auto 0;
+            font-size: 1.2rem;
+            background: rgba(0,0,0,0.55);
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 40px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* сетка контента */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr;
+            gap: 32px;
+            margin: 40px 0;
+        }
+
+        /* индивидуальная / текстовая область */
+        .main-article {
+            background: #102129e0;
+            backdrop-filter: blur(1px);
+            padding: 28px;
+            border-radius: 28px;
+            border-left: 6px solid #8bc34a;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .main-article h3 {
+            font-size: 1.9rem;
+            margin-bottom: 20px;
+            color: #c7e9a0;
+        }
+
+        .text-field {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-top: 16px;
+        }
+
+        .text-field p {
+            margin-bottom: 20px;
+        }
+
+        /* Счетчик посещений */
+        .visitor-card {
+            background: #071217;
+            padding: 24px;
+            border-radius: 28px;
+            text-align: center;
+            margin-bottom: 32px;
+            border: 1px solid #2a4a3a;
+        }
+
+        .visitor-card i {
+            font-size: 2.8rem;
+            color: #8bc34a;
+        }
+
+        .visitor-count {
+            font-size: 3rem;
+            font-weight: 800;
+            font-family: monospace;
+            background: #00000055;
+            display: inline-block;
+            padding: 4px 20px;
+            border-radius: 60px;
+            margin: 10px 0;
+            letter-spacing: 4px;
+        }
+
+        /* авторские права + email */
+        .copyright-block {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #2c493b;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #9bb7b0;
+        }
+
+        .copyright-block a {
+            color: #b1de7c;
+            text-decoration: none;
+        }
+
+        /* боковая панель для остального */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .info-card {
+            background: #0e1c22d9;
+            border-radius: 24px;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .info-card h4 {
+            font-size: 1.3rem;
+            border-bottom: 2px dashed #6c9a3e;
+            display: inline-block;
+            margin-bottom: 14px;
+        }
+
+        .info-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-card li {
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn {
+            background: #6c9a3e;
+            color: #0a1a1a;
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: bold;
+            display: inline-block;
+            text-decoration: none;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #8bc34a;
+            color: #c3e88d;
+        }
+
+        /* футер */
+        footer {
+            background: #071016;
+            margin-top: 60px;
+            padding: 35px 0 25px;
+            text-align: center;
+            border-top: 1px solid #2d5540;
+        }
+
+        /* Адаптив */
+        @media (max-width: 860px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-banner h2 {
+                font-size: 1.9rem;
+            }
+            .nav-menu ul {
+                justify-content: center;
+            }
+            .header-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* стили для скрытия/показа страниц */
+        .page {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .page.active-page {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+            gap: 18px;
+            margin: 20px 0;
+        }
+
+        .gallery-item {
+            background: #1f2f28;
+            border-radius: 20px;
+            overflow: hidden;
+            text-align: center;
+            padding: 12px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            border-radius: 14px;
+            background: #2e5641;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .team-member {
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ========== ЗАГОЛОВОК + ЛОГОТИП ========== -->
+<header class="header">
+    <div class="container header-flex">
+        <div class="logo-area">
+            <div class="logo-icon"><i class="fas fa-crosshairs"></i></div>
+            <div class="logo-text">
+                <h1>STRIKEFORCE</h1>
+                <p>Airsoft | Tactical Team</p>
+            </div>
+        </div>
+        <nav class="nav-menu">
+            <ul id="nav-list">
+                <!-- динамически генерируем пункты через JS (10 страниц) -->
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- ========== РЕКЛАМНЫЙ БАННЕР (общий для всех страниц, но заголовок меняется) ========== -->
+<div class="hero-banner" id="heroBanner">
+    <h2 id="bannerTitle">ДОБРО ПОЖАЛОВАТЬ В МИР СТРАЙКБОЛА</h2>
+    <p id="bannerDesc">Тактические сражения | Снаряжение | Команда единомышленников</p>
+</div>
+
+<div class="container">
+    <!-- ГЛАВНЫЙ КОНТЕЙНЕР ДЛЯ ВСЕХ СТРАНИЦ (10 шт) -->
+    <div id="pages-container"></div>
+
+    <!-- Дополнительно: счетчик посещений и copyright общий для всего сайта (по макету) -->
+    <div class="visitor-card" style="margin-top: 20px;">
+        <i class="fas fa-eye"></i>
+        <h4>Счетчик посещений</h4>
+        <div class="visitor-count" id="visitCounter">0</div>
+        <p>активных игроков онлайн (симуляция)</p>
+    </div>
+
+    <div class="copyright-block">
+        <p>© 2025 StrikeForce Airsoft. Все права защищены. | <i class="fas fa-envelope"></i> <a href="mailto:info@strikeforce-airsoft.ru">info@strikeforce-airsoft.ru</a> | <i class="fab fa-discord"></i> <a href="#">Discord-сообщество</a></p>
+        <p style="margin-top:8px;">Страйкбол — это командный спорт, уважайте соперников и технику безопасности!</p>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <p><i class="fas fa-shield-alt"></i> Играй честно | Развивай тактику | Будь в строю</p>
+    </div>
+</footer>
+
+<script>
+    // ----- 10 СТРАНИЦ (контент основан на страйкболе) -----
+    const pagesData = [
+        { id: "home", name: "Главная", bannerTitle: "ТИТАНЫ СТРАЙКБОЛА", bannerDesc: "План полевых действий, новости и стратегия" },
+        { id: "rules", name: "Правила", bannerTitle: "КОДЕКС БОЙЦА", bannerDesc: "Безопасность, этика и основы игры" },
+        { id: "gear", name: "Снаряжение", bannerTitle: "ТВОЙ АРСЕНАЛ", bannerDesc: "Приводы, защита, тактическое обмундирование" },
+        { id: "teams", name: "Команды", bannerTitle: "ЭЛИТНЫЕ ОТРЯДЫ", bannerDesc: "Найди свою команду или создай новую" },
+        { id: "events", name: "События", bannerTitle: "БЛИЖАЙШИЕ ИГРЫ", bannerDesc: "Турниры, полигоны, опен-дей" },
+        { id: "training", name: "Тренировки", bannerTitle: "ТАКТИЧЕСКАЯ ПОДГОТОВКА", bannerDesc: "Курсы молодого бойца" },
+        { id: "gallery", name: "Галерея", bannerTitle: "МОМЕНТЫ БОЕВ", bannerDesc: "Фото и видео с игр" },
+        { id: "shop", name: "Магазин", bannerTitle: "MILITARY SHOP", bannerDesc: "Снаряжение с доставкой" },
+        { id: "rankings", name: "Рейтинг", bannerTitle: "ТАБЛИЦА ЛИГ", bannerDesc: "Лучшие игроки сезона" },
+        { id: "contacts", name: "Контакты", bannerTitle: "СВЯЗЬ СО ШТАБОМ", bannerDesc: "Полевая почта и карта" }
+    ];
+
+    // контент для каждой страницы (индивидуальное текстовое поле + дополнительные элементы)
+    const pageContent = {
+        home: `
+            <div class="content-grid">
+                <div class="main-article">
+                    <h3>Добро пожаловать на главную!</h3>
+                    <div class="text-field">
+                        <p><strong>Страйкбол</strong> — динамичная командная игра, имитирующая боестолкновения. У нас вы найдёте всё: от тактических полигонов до сообщества опытных игроков. Наш клуб “StrikeForce” основан в 2012 году и объединяет более 200 активных участников.</p>
+                        <p>✔️ Регулярные игры на лучших полигонах региона.<br>✔️ Обучение тактике и обращению со страйкбольным приводом.<br>✔️ Атмосфера настоящего братства.</p>
+                        <p>Присоединяйтесь к нам на следующей игре 12 июня — битва за “Стальную крепость”. Регистрация открыта!</p>
+                    </div>
+                </div>
+                <div class="sidebar">
+                    <div class="info-card"><h4><i class="fas fa-bullhorn"></i> Анонс</h4><p>🔥 Мега-игра “Гром” 25-27 июля. Формат 24h. Билеты ограничены!</p></div>
+                    <div class="info-card"><h4><i class="fas fa-chart-line"></i> Статистика</h4><p>В этом сезоне 54 игры, 1280 участников.</p></div>
+                </div>
+            </div>
+        `,
+        rules: `
+            <div class="content-grid">
+                <div class="main-article"><h3>Правила страйкбола</h3><div class="text-field"><p><strong>1. Безопасность прежде всего!</strong> Обязательна защита глаз (очки/маска), для ближнего боя — ограничение скорости 1.1 Дж.</p><p><strong>2. Честная игра:</strong> попавший игрок поднимает руку и покидает бой. Запрещены агрессивные контакты.</p><p><strong>3. Дробовики, гранаты и мины:</strong> использование только разрешённых муляжей.</p><p>Нарушение правил влечёт временную дисквалификацию. Мы за безопасный и честный страйкбол!</p></div></div>
+                <div class="sidebar"><div class="info-card"><h4>Штрафы</h4><ul><li><i class="fas fa-ban"></i> Игнорирование попаданий — 2 предупреждения</li><li><i class="fas fa-exclamation-triangle"></i> Снятие защиты — немедленный бан</li></ul></div></div>
+            </div>
+        `,
+        gear: `
+            <div class="content-grid"><div class="main-article"><h3>Снаряжение</h3><div class="text-field"><p>Рекомендуемый стартовый набор: страйкбольный привод AEG (M4/AK), защитные очки (ANSI Z87+), разгрузочная система, берцы. Наш клуб тестирует снаряжение: <strong>опускаем лучшие бренды Lancer Tactical, E&L, G&G.</strong></p><p>Полный гайд по апгрейду и подбору экипировки — на внутреннем форуме.</p></div></div><div class="sidebar"><div class="info-card"><i class="fas fa-tools"></i> Тюнинг-мастерские: настройка хоп-апа, замена пружины.</div></div></div>
+        `,
+        teams: `
+            <div class="content-grid"><div class="main-article"><h3>Команды StrikeForce</h3><div class="text-field"><p>В составе лиги состоят: "Альфа", "Браво", "Чёрные волки", "Ветераны". Каждая команда имеет свою тактику. Вступай в отряд по душе — заполни анкету на странице регистрации.</p><p>Еженедельные тренировки в закрытом страйкбольном центре.</p></div></div><div class="sidebar"><div class="info-card"><h4>Капитанский совет</h4><p>Следующее собрание 10.06 в 19:00.</p></div></div></div>
+        `,
+        events: `
+            <div class="content-grid"><div class="main-article"><h3>Календарь событий</h3><div class="text-field"><ul><li>🗓️ 20 июня - Ночная операция "Тишина в эфире" (полигон Лесной)</li><li>🗓️ 5 июля - Турнир новичков "Первый выстрел"</li><li>🗓️ 18 июля - Мастер-класс по тактической медицине</li><li>🗓️ 1-3 августа - Летний фестиваль "Зарница Airsoft"</li></ul><p>Регистрация через телеграм-бот @strikeforce_bot</p></div></div><div class="sidebar"><div class="info-card"><i class="fas fa-ticket-alt"></i> Скидки командам от 6 человек.</div></div></div>
+        `,
+        training: `
+            <div class="content-grid"><div class="main-article"><h3>Тактическая подготовка</h3><div class="text-field"><p>Курсы: <strong>Базовый уровень (2 дня)</strong> - обращение с оружием, маскировка, взаимодействие в группе. <strong>Продвинутый</strong> - CQB, штурм зданий, тактические знаки.</p><p>Запишись на ближайшие выходные! Тренеры - инструкторы с опытом 10+ лет.</p></div></div><div class="sidebar"><div class="info-card"><i class="fas fa-dumbbell"></i> Физическая подготовка каждую среду.</div></div></div>
+        `,
+        gallery: `
+            <div class="main-article" style="margin-bottom: 20px;"><h3>Фотогалерея боёв</h3><div class="gallery-grid"><div class="gallery-item"><i class="fas fa-camera" style="font-size:3rem;"></i><p>Штурм здания</p></div><div class="gallery-item"><i class="fas fa-image"></i><p>Лесной полигон</p></div><div class="gallery-item"><i class="fas fa-video"></i><p>Ночная игра</p></div><div class="gallery-item"><i class="fas fa-users"></i><p>Командное фото</p></div></div><div class="text-field"><p>Больше 200 фотоотчётов в нашем облаке. Доступ после регистрации.</p></div></div>
+        `,
+        shop: `
+            <div class="content-grid"><div class="main-article"><h3>Магазин снаряжения</h3><div class="text-field"><p>Приводы, магазины, гранаты, форма multicam, защита. Спецпредложение для участников клуба — скидка 10% по промокоду <strong>STRIKE2025</strong>.</p><p>Доставка по всей РФ. Шоурум в Москве.</p></div></div><div class="sidebar"><div class="info-card"><i class="fas fa-shipping-fast"></i> Бесплатная доставка от 7000₽.</div></div></div>
+        `,
+        rankings: `
+            <div class="main-article"><h3>Рейтинг игроков 2025</h3><div class="text-field"><p>1. Сергей "Тихий" - 2480 очков <br>2. Михаил "Штурм" - 2105 очков <br>3. Дмитрий "Геккон" - 1950 очков <br>4. Елена "Вьюга" - 1780 очков <br><br>Рейтинг обновляется после каждого рейтингового матча. Топ-10 получают призы в конце сезона.</p></div></div>
+        `,
+        contacts: `
+            <div class="content-grid"><div class="main-article"><h3>Связь с нами</h3><div class="text-field"><p>📍 Адрес центра: г. Москва, ул. Полигонная, 12, стр. 3 (Страйкбол-арена "Сталь")<br>📞 Телефон: +7 (495) 123-45-67<br>📧 E-mail: info@strikeforce-airsoft.ru<br>📱 Telegram: @strikeforce_club</p><p>Режим работы: ежедневно 10:00 - 22:00, бронирование полей онлайн.</p></div></div><div class="sidebar"><div class="info-card"><iframe width="100%" height="180" style="border:0; border-radius:18px" loading="lazy" src="https://maps.google.com/maps?q=москва%20полигонная%2012&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe></div></div></div>
+        `
+    };
+
+    // заполняем навигацию и рендерим страницы
+    const navList = document.getElementById('nav-list');
+    const pagesContainer = document.getElementById('pages-container');
+    const heroBannerTitle = document.getElementById('bannerTitle');
+    const heroBannerDesc = document.getElementById('bannerDesc');
+
+    let currentPageId = "home";
+
+    function renderAllPages() {
+        pagesContainer.innerHTML = '';
+        pagesData.forEach(page => {
+            const pageDiv = document.createElement('div');
+            pageDiv.id = `page-${page.id}`;
+            pageDiv.className = 'page';
+            if (page.id === currentPageId) pageDiv.classList.add('active-page');
+            // вставляем контент
+            let contentHtml = pageContent[page.id] || `<div class="main-article"><div class="text-field"><p>Контент страницы "${page.name}" в разработке, но добро пожаловать в мир страйкбола!</p></div></div>`;
+            pageDiv.innerHTML = contentHtml;
+            pagesContainer.appendChild(pageDiv);
+        });
+    }
+
+    function buildNav() {
+        navList.innerHTML = '';
+        pagesData.forEach(page => {
+            const li = document.createElement('li');
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = page.name;
+            if (page.id === currentPageId) a.classList.add('active');
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                switchPage(page.id);
+            });
+            li.appendChild(a);
+            navList.appendChild(li);
+        });
+    }
+
+    function switchPage(pageId) {
+        // скрыть все страницы
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active-page'));
+        const activePage = document.getElementById(`page-${pageId}`);
+        if (activePage) activePage.classList.add('active-page');
+        // обновим активное меню
+        document.querySelectorAll('.nav-menu a').forEach(link => link.classList.remove('active'));
+        const links = document.querySelectorAll('.nav-menu a');
+        const clickedIndex = pagesData.findIndex(p => p.id === pageId);
+        if (links[clickedIndex]) links[clickedIndex].classList.add('active');
+        // обновим баннер
+        const pageInfo = pagesData.find(p => p.id === pageId);
+        if (pageInfo) {
+            heroBannerTitle.innerText = pageInfo.bannerTitle;
+            heroBannerDesc.innerText = pageInfo.bannerDesc;
+        }
+        currentPageId = pageId;
+        // небольшой скролл вверх (опционально)
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+    }
+
+    // Счетчик посещений (localStorage + имитация онлайн)
+    function initCounter() {
+        let visits = localStorage.getItem('airsoft_visits');
+        if (visits === null) {
+            visits = 1247; // стартовое значение как "уникальных"
+        } else {
+            visits = parseInt(visits) + 1;
+        }
+        localStorage.setItem('airsoft_visits', visits);
+        // рандомный онлайн-счетчик для динамики (от 80 до 350)
+        const onlineCount = Math.floor(Math.random() * 300) + 85;
+        const counterSpan = document.getElementById('visitCounter');
+        if (counterSpan) {
+            counterSpan.innerHTML = `${visits.toLocaleString()} уникальных игроков<br><span style="font-size: 1rem;">сейчас онлайн: ${onlineCount}</span>`;
+        }
+    }
+
+    // добавим "индивидуальная" заметка (по макету Текстовое поле и прочее)
+    function injectExtraText() {
+        // уже содержится внутри каждой страницы — дополнительная стилизация выполнена.
+        // Но для соответствия макету: на главной странице "Индивидуальная" часть присутствует в main-article.
+        // всё готово
+    }
+
+    // Инициализация
+    renderAllPages();
+    buildNav();
+    initCounter();
+    // устанавливаем баннер для текущей страницы (home)
+    const homePageData = pagesData.find(p => p.id === "home");
+    heroBannerTitle.innerText = homePageData.bannerTitle;
+    heroBannerDesc.innerText = homePageData.bannerDesc;
+    injectExtraText();
+    
+    // Небольшой твик для мобильной адаптации + сохранение активной страницы после перезагрузки? не требуется
+    // Дополнительный эффект: при первом посещении показать модальное окно приветствия? не обязательно.
+    console.log("Airsoft site with 10 pages ready!");
+</script>
+</body>
+</html>
